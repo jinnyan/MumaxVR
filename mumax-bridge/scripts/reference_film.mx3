@@ -1,0 +1,34 @@
+// Copyright (C) 2026 Janine Graser and Dr. Thomas Schlake
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Additional attribution term (GPL-3.0 section 7(b)): see NOTICE in mumax-bridge/.
+
+// MumaxVR reference film — Phase 0 data source and permanent regression case.
+// A Néel skyrmion in a DMI thin film, pushed across the sample by
+// spin-polarized current. Produces ~60 OVF frames over 3 ns.
+//
+// Run:  mumax3 reference_film.mx3
+// Then point Unity's MumaxPlaybackManager at the reference_film.out folder.
+
+SetGridSize(256, 256, 1)
+SetCellSize(4e-9, 4e-9, 4e-9)
+
+// thin-film material hosting Néel skyrmions (Co/Pt-like)
+Msat  = 580e3
+Aex   = 15e-12
+Dind  = 3.0e-3
+Ku1   = 0.8e6
+anisU = vector(0, 0, 1)
+
+// relax a skyrmion into its ground state
+alpha = 0.3
+m = neelskyrmion(1, -1)
+relax()
+
+// drive: Zhang-Li spin-transfer torque moves the skyrmion
+alpha = 0.02
+xi    = 0.2
+Pol   = 0.4
+J     = vector(1.5e12, 0, 0)
+
+autosave(m, 5e-11)
+run(3e-9)

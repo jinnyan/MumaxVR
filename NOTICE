@@ -1,0 +1,38 @@
+MumaxVR
+=======
+
+Copyright (C) 2026 Janine Graser and Dr. Thomas Schlake
+
+MumaxVR is free software: you can redistribute it and/or modify it under the
+terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version (see LICENSE). The mumax-bridge/ subdirectory is licensed under
+the GNU General Public License, version 3 or (at your option) any later
+version (see mumax-bridge/LICENSE and mumax-bridge/NOTICE).
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE. See the licenses for more details.
+
+Additional term under section 7(b)
+----------------------------------
+
+As permitted by section 7(b) of the GNU Affero General Public License,
+version 3, the following additional term applies to all material in this
+repository authored by Janine Graser and Dr. Thomas Schlake:
+
+  Any copy or modified version of this material that you convey or make
+  available to users interacting with it over a network, and any work
+  containing it, must preserve the author attribution
+
+      "Based on MumaxVR by Janine Graser and Dr. Thomas Schlake"
+
+  (a) in the source files that contain this material, and
+  (b) in the Appropriate Legal Notices displayed by its interactive user
+      interfaces, if it has any.
+
+The running application displays these Appropriate Legal Notices in the
+bottom-left corner of the desktop view (Assets/MumaxVR/Scripts/MumaxLegalNotice.cs).
+
+Third-party components are listed in THIRD_PARTY_NOTICES.md. They keep their
+own licenses and are not subject to this additional term.

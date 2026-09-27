@@ -1,0 +1,46 @@
+# Normalize text files to LF in the repository
+* text=auto
+
+# Unity YAML assets — merge with Unity's Smart Merge (UnityYAMLMerge) if configured
+*.unity    text eol=lf merge=unityyamlmerge
+*.prefab   text eol=lf merge=unityyamlmerge
+*.asset    text eol=lf merge=unityyamlmerge
+*.mat      text eol=lf merge=unityyamlmerge
+*.anim     text eol=lf merge=unityyamlmerge
+*.controller text eol=lf merge=unityyamlmerge
+*.meta     text eol=lf
+
+# Exceptions: Unity writes these as binary / JSON — never convert line endings
+LightingData.asset -text merge=binary
+ProjectSettings/XRSettings.asset -text
+ProjectSettings/XRPackageSettings.asset -text
+
+# Code / text
+*.cs       text diff=csharp
+*.shader   text
+*.compute  text
+*.hlsl     text
+*.md       text
+*.json     text
+*.cff      text
+*.ps1      text eol=crlf
+
+# Binaries
+*.dll      binary
+*.exe      binary
+*.so       binary
+*.png      binary
+*.jpg      binary
+*.jpeg     binary
+*.gif      binary
+*.ttf      binary
+*.otf      binary
+*.fbx      binary
+*.wav      binary
+*.mp3      binary
+*.mp4      binary
+
+# mumax / OOMMF vector-field files (may contain binary data sections)
+*.ovf      binary
+*.go       text eol=lf
+*.mx3      text

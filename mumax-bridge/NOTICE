@@ -1,0 +1,50 @@
+mumax-bridge
+============
+
+Copyright (C) 2026 Janine Graser and Dr. Thomas Schlake
+
+This program links the mumax3 micromagnetic simulation engine
+(https://github.com/mumax/3), which is licensed under the GNU General Public
+License version 3. Because mumax-bridge links the mumax3 engine package, it is a
+derivative work and is distributed under GPL-3.0-or-later (see LICENSE).
+
+mumax3 is developed by the DyNaMat group, Ghent University, and contributors.
+mumax3 is NOT included in this repository — you clone it yourself at build time
+(see README.md).
+
+Additional term under section 7(b)
+----------------------------------
+
+As permitted by section 7(b) of the GNU General Public License, version 3, the
+following additional term applies to the material in this directory authored
+by Janine Graser and Dr. Thomas Schlake (it does not apply to mumax3 itself):
+
+  Any copy or modified version of this material that you convey or make
+  available to users interacting with it over a network, and any work
+  containing it, must preserve the author attribution
+
+      "Based on MumaxVR by Janine Graser and Dr. Thomas Schlake"
+
+  (a) in the source files that contain this material, and
+  (b) in the Appropriate Legal Notices displayed by its interactive user
+      interfaces, if it has any.
+
+Please cite mumax3 in any published work that uses it
+-----------------------------------------------------
+
+Main mumax3 paper:
+
+  A. Vansteenkiste, J. Leliaert, M. Dvornik, M. Helsen, F. Garcia-Sanchez,
+  and B. Van Waeyenberge,
+  "The design and verification of MuMax3",
+  AIP Advances 4, 107133 (2014).
+  https://doi.org/10.1063/1.4899186
+
+The bundled example (scripts/reference_film.mx3, and the default simulation in
+main.go) uses interfacially-induced DMI, described in:
+
+  J. Mulkers, B. Van Waeyenberge, and M. V. Milosevic,
+  "Effects of spatially-engineered Dzyaloshinskii-Moriya interaction in
+   ferromagnetic films",
+  Physical Review B 95, 144401 (2017).
+  https://doi.org/10.1103/PhysRevB.95.144401

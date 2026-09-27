@@ -1,0 +1,77 @@
+# ── Unity ──────────────────────────────────────────────────────────────
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+.vs/
+.vsconfig
+.idea/
+.vscode/
+.consulo/
+/[Aa]ssets/[Pp]lugins/[Ee]ditor/[Jj]et[Bb]rains*
+/[Ee]xported[Oo]bj/
+.utmp/
+
+# Unity-generated project files (regenerated on open)
+*.csproj
+*.sln
+*.unityproj
+*.user
+*.pidb
+*.booproj
+*.svd
+*.suo
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.tmp
+*.pdb.meta
+*.mdb.meta
+
+# Builds / packages
+*.apk
+*.aab
+*.unitypackage
+*.app
+crashlytics-buildid.txt
+
+# Unity crash / log files
+sysinfo.txt
+*.stackdump
+Assets/Log.txt
+Log.txt
+
+# ── mumax-bridge (Go + CUDA) ───────────────────────────────────────────
+# mumax3 source is cloned here at build time — do not commit it.
+# No trailing slash: on some machines this is a symlink, which a
+# directory-only pattern ("/mumax3-src/") would NOT match.
+/mumax3-src
+
+# Build output and NVIDIA runtime DLLs are not included (size / user-built)
+mumax-bridge/mumax-bridge.exe
+mumax-bridge/*.dll
+mumax-bridge/bridge.out/
+
+# mumax simulation output (regenerable)
+mumax-bridge/scripts/*.out/
+*.out/
+
+# ── repo-local notes (not for publication) ─────────────────────────────
+PUBLISH_TODO.md
+docs/mumaxvr_ledger.html
+
+# TextMesh Pro "Examples & Extras" — unused by MumaxVR, contains fonts with
+# unclear licensing; keep it out of the repository
+/Assets/TextMesh Pro/Examples & Extras/
+/Assets/TextMesh Pro/Examples & Extras.meta
+
+# ── OS / editor cruft ──────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,73 @@
+cff-version: 1.2.0
+message: >-
+  If you use MumaxVR in academic work, please cite both this software and the
+  mumax3 framework it visualizes (see the references below).
+title: >-
+  MumaxVR: Real-time virtual-reality visualization for micromagnetic simulations
+abstract: >-
+  MumaxVR is a Unity/OpenXR front end for the mumax3 GPU micromagnetic solver.
+  It renders each finite-difference cell as a GPU-instanced arrow inside a
+  stereoscopic VR rig, from either saved OVF files or a live stream produced by
+  a bundled Go sidecar that embeds the mumax3 engine. A physics-based filter,
+  distance level-of-detail, and a grabbable box/lens/slice region-of-interest
+  tool keep dense volumes readable.
+type: software
+authors:
+  - family-names: Graser
+    given-names: Janine
+    orcid: "https://orcid.org/0009-0009-9467-4869"
+    affiliation: "University of Duisburg-Essen, Germany"
+  - family-names: Schlake
+    given-names: Thomas
+    orcid: "https://orcid.org/0000-0003-3219-042X"
+version: 1.0.0
+date-released: "2026-09-28"
+license: AGPL-3.0-or-later
+url: "https://github.com/jinnyan/MumaxVR"
+repository-code: "https://github.com/jinnyan/MumaxVR"
+keywords:
+  - micromagnetics
+  - GPU simulation
+  - virtual reality
+  - scientific visualization
+  - skyrmions
+  - spintronics
+  - Unity
+  - OpenXR
+references:
+  - type: article
+    title: "The design and verification of MuMax3"
+    authors:
+      - family-names: Vansteenkiste
+        given-names: Arne
+      - family-names: Leliaert
+        given-names: Jonathan
+      - family-names: Dvornik
+        given-names: Mykola
+      - family-names: Helsen
+        given-names: Mathias
+      - family-names: Garcia-Sanchez
+        given-names: Felipe
+      - family-names: Van Waeyenberge
+        given-names: Bartel
+    journal: "AIP Advances"
+    volume: 4
+    start: 107133
+    year: 2014
+    doi: 10.1063/1.4899186
+  - type: article
+    title: >-
+      Effects of spatially-engineered Dzyaloshinskii-Moriya interaction in
+      ferromagnetic films
+    authors:
+      - family-names: Mulkers
+        given-names: Jeroen
+      - family-names: Van Waeyenberge
+        given-names: Bartel
+      - family-names: Milošević
+        given-names: Milorad V.
+    journal: "Physical Review B"
+    volume: 95
+    start: 144401
+    year: 2017
+    doi: 10.1103/PhysRevB.95.144401

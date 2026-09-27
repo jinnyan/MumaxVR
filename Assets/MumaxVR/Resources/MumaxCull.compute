@@ -1,0 +1,101 @@
+// Copyright (C) 2026 Janine Graser and Dr. Thomas Schlake
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Additional attribution term (AGPL-3.0 section 7(b)): see NOTICE in the repository root.
+
+// Per-frame visibility culling for MumaxRenderer. Classifies every cell as
+// arrow (near), stick (mid) or hidden by applying, in order:
+//   1. vacuum test        — mumax stores m = 0 outside the sample geometry
+//   2. physics filter     — hide cells (near-)parallel to all 6 neighbors, so
+//                           only domain walls / vortices / skyrmions remain
+//   3. region of interest — box, spherical lens, or slice slab
+//   4. proximity LOD      — near = arrow, mid = stick, beyond far = hidden
+// Survivors are appended to _NearIds/_MidIds, which MumaxCellShader indexes.
+#pragma kernel CSCull
+
+StructuredBuffer<float3> _Positions;
+StructuredBuffer<float3> _Directions;
+AppendStructuredBuffer<uint> _NearIds;
+AppendStructuredBuffer<uint> _MidIds;
+
+uint _Count;
+uint _Nx, _Ny, _Nz;
+float _GridSpacing;
+float4x4 _GridMatrix;
+float3 _CamPos;
+
+uint _FilterEnabled;
+float _FilterThreshold;      // 0.5 * (1 - cos(minNeighborAngle))
+
+uint _LodEnabled;
+float _LodNear;
+float _LodFar;
+
+uint _RoiMode;               // 0 none, 1 box, 2 lens, 3 slice
+float4x4 _RoiWorldToLocal;
+float3 _RoiCenter;
+float _RoiRadius;
+float3 _SliceNormal;
+float3 _SlicePoint;
+float _SliceHalfThickness;
+
+static const int3 NeighborOffsets[6] =
+{
+    int3( 1, 0, 0), int3(-1, 0, 0),
+    int3( 0, 1, 0), int3( 0,-1, 0),
+    int3( 0, 0, 1), int3( 0, 0,-1)
+};
+
+[numthreads(256, 1, 1)]
+void CSCull(uint3 tid : SV_DispatchThreadID)
+{
+    uint id = tid.x;
+    if (id >= _Count) return;
+
+    float3 m = _Directions[id];
+    if (dot(m, m) < 0.1) return;
+    m = normalize(m);
+
+    if (_FilterEnabled != 0)
+    {
+        int3 c = int3(id % _Nx, (id / _Nx) % _Ny, id / (_Nx * _Ny));
+        float worst = 0.0;
+        [unroll]
+        for (int n = 0; n < 6; n++)
+        {
+            int3 q = c + NeighborOffsets[n];
+            if (q.x < 0 || q.y < 0 || q.z < 0 ||
+                q.x >= (int)_Nx || q.y >= (int)_Ny || q.z >= (int)_Nz) continue;
+            float3 mn = _Directions[(uint)q.x + (uint)q.y * _Nx + (uint)q.z * _Nx * _Ny];
+            if (dot(mn, mn) < 0.1) continue; // vacuum neighbor says nothing about texture
+            worst = max(worst, 0.5 * (1.0 - dot(m, normalize(mn))));
+        }
+        if (worst < _FilterThreshold) return;
+    }
+
+    // world position — same mumax Z-up -> Unity Y-up mapping as the draw shader
+    float3 raw = _Positions[id];
+    float3 posWS = mul(_GridMatrix, float4(float3(raw.x, raw.z, raw.y) * _GridSpacing, 1.0)).xyz;
+
+    if (_RoiMode == 1)
+    {
+        // ROI transform maps a unit cube onto the box volume
+        float3 l = mul(_RoiWorldToLocal, float4(posWS, 1.0)).xyz;
+        if (any(abs(l) > 0.5)) return;
+    }
+    else if (_RoiMode == 2)
+    {
+        if (distance(posWS, _RoiCenter) > _RoiRadius) return;
+    }
+    else if (_RoiMode == 3)
+    {
+        if (abs(dot(posWS - _SlicePoint, _SliceNormal)) > _SliceHalfThickness) return;
+    }
+
+    if (_LodEnabled != 0)
+    {
+        float d = distance(posWS, _CamPos);
+        if (d > _LodFar) return;
+        if (d > _LodNear) { _MidIds.Append(id); return; }
+    }
+    _NearIds.Append(id);
+}
